@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "./static/css/main.2225b821.css",
-    "main.js": "./static/js/main.16c52619.js",
-    "static/js/787.885d9186.chunk.js": "./static/js/787.885d9186.chunk.js",
-    "index.html": "./index.html",
-    "main.2225b821.css.map": "./static/css/main.2225b821.css.map",
-    "main.16c52619.js.map": "./static/js/main.16c52619.js.map",
-    "787.885d9186.chunk.js.map": "./static/js/787.885d9186.chunk.js.map"
+    "main.css": "/mhxyTools/static/css/main.2225b821.css",
+    "main.js": "/mhxyTools/static/js/main.6b95f607.js",
+    "static/js/787.885d9186.chunk.js": "/mhxyTools/static/js/787.885d9186.chunk.js",
+    "index.html": "/mhxyTools/index.html",
+    "main.2225b821.css.map": "/mhxyTools/static/css/main.2225b821.css.map",
+    "main.6b95f607.js.map": "/mhxyTools/static/js/main.6b95f607.js.map",
+    "787.885d9186.chunk.js.map": "/mhxyTools/static/js/787.885d9186.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.2225b821.css",
-    "static/js/main.16c52619.js"
+    "static/js/main.6b95f607.js"
   ]
 }
