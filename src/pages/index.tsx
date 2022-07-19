@@ -1,29 +1,45 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
-
-import { Form, Input, Button, Col, Row, Empty, Divider } from "antd";
+import {
+  Form,
+  Input,
+  Button,
+  Col,
+  Row,
+  Empty,
+  Divider,
+  message,
+  Spin,
+} from "antd";
 
 const Index = () => {
   const [asks, setAsks] = useState<string[]>([]);
+  const [answer, setAnswer] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const doAsk = (question: string) => {
-    const list = [question, ...asks].filter((v, i) => i < 10);
+    const list = [question, ...asks].filter((v, i) => i < 5);
     setAsks(list);
-    // todo
 
-    const url =
-      "https://xyq.gm.163.com/cgi-bin/csa/csa_sprite.py?act=ask&product_name=xyq&question=";
-    fetch(url + question, {
-      credentials: "include",
-      mode: "cors",
-      referrerPolicy: "no-referrer",
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-      },
+    const anywhere = "https://cors-anywhere.herokuapp.com/";
+    const mhxy =
+      "https://xyq.gm.163.com/cgi-bin/csa/csa_sprite.py?act=ask&product_name=xyq&question=" +
+      question;
+
+    const url = anywhere + mhxy;
+    setLoading(true);
+    fetch(url, {
+      method: "GET",
     })
-      .then((resp) => resp.json)
+      .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        setLoading(false);
+        const { result, raw_answer } = data;
+        if (result === "success") {
+          setAnswer(raw_answer);
+        } else {
+          message.error("请求失败:" + JSON.stringify(data));
+        }
       });
   };
 
@@ -34,6 +50,7 @@ const Index = () => {
   useEffect(() => {
     (window as any).reask = doAsk;
   }, []);
+
   return (
     <div>
       <Row>
@@ -54,19 +71,32 @@ const Index = () => {
           </Form>
         </Col>
         <Col span={12}>
-          <h4>最近问题 top10</h4>
+          <h4>最近问题 top5</h4>
           <ol>
             {asks.map((entry) => (
-              <li key={uuidv4()}>{entry}</li>
+              <li key={uuidv4()}>
+                <Button
+                  type="link"
+                  onClick={() => {
+                    doAsk(entry);
+                  }}
+                >
+                  {entry}
+                </Button>
+              </li>
             ))}
           </ol>
           {asks.length === 0 ? <Empty /> : ""}
         </Col>
       </Row>
       <Divider />
-      <div id="detail" style={{ backgroundColor: "#fff" }}>
-        <Empty />
-      </div>
+      <Spin spinning={loading}>
+        <div
+          dangerouslySetInnerHTML={{ __html: answer }}
+          style={{ backgroundColor: "#fff" }}
+        />
+        {answer ? "" : <Empty />}
+      </Spin>
     </div>
   );
 };
