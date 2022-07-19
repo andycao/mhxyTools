@@ -59,7 +59,7 @@ const Index = () => {
             <Form.Item
               label="问题"
               name="question"
-              rules={[{ required: true, message: "输入问题" }]}
+              rules={[{ required: true, message: "可以问我问题" }]}
             >
               <Input placeholder="输入问题" style={{ width: 400 }} />
             </Form.Item>
