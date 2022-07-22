@@ -21,12 +21,12 @@ const Index = () => {
     const list = [question, ...asks].filter((v, i) => i < 5);
     setAsks(list);
 
-    const anywhere = "https://cors-anywhere.herokuapp.com/";
+    const anywhere = "https://thingproxy.freeboard.io/fetch/";
     const mhxy =
       "https://xyq.gm.163.com/cgi-bin/csa/csa_sprite.py?act=ask&product_name=xyq&question=" +
       question;
 
-    const url = anywhere + mhxy;
+    const url = anywhere + encodeURIComponent(mhxy);
     setLoading(true);
     fetch(url, {
       method: "GET",
