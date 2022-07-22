@@ -21,7 +21,7 @@ const Index = () => {
     const list = [question, ...asks].filter((v, i) => i < 5);
     setAsks(list);
 
-    const anywhere = "https://thingproxy.freeboard.io/fetch/";
+    const anywhere = "https://api.allorigins.win/get?url=";
     const mhxy =
       "https://xyq.gm.163.com/cgi-bin/csa/csa_sprite.py?act=ask&product_name=xyq&question=" +
       question;
@@ -34,12 +34,16 @@ const Index = () => {
       .then((res) => res.json())
       .then((data) => {
         setLoading(false);
-        const { result, raw_answer } = data;
+        const { contents } = data;
+        const { result, raw_answer } = JSON.parse(contents);
         if (result === "success") {
           setAnswer(raw_answer);
         } else {
           message.error("请求失败:" + JSON.stringify(data));
         }
+      })
+      .catch(() => {
+        message.error("请求错误");
       });
   };
 
