@@ -65,7 +65,7 @@ const Index = () => {
               name="question"
               rules={[{ required: true, message: "可以问我问题" }]}
             >
-              <Input placeholder="输入问题" style={{ width: 400 }} />
+              <Input placeholder="输入问题" style={{ minWidth: 100 }} />
             </Form.Item>
             <Form.Item wrapperCol={{ offset: 6 }}>
               <Button type="primary" htmlType="submit">
